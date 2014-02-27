@@ -1,7 +1,7 @@
 <?php
 /*
 Plugin Name: Mail()Man Subscribe
-Plugin URI: https://stieglmaier.me
+Plugin URI: https://bitbucket.org/ieee-passau-Web-Relaunch/mail-man-subscription
 Description: Uses the php mail function to send subscribe mails to mailing lists. WPML compatible (WPML String Translation plugin required).
 Author: Thomas Stieglmaier
 Version: 1.0
