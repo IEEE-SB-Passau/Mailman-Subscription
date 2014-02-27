@@ -1,4 +1,4 @@
-=== MailMan Widget ===
+=== Mail()man Subscription ===
 Contributors: Thomas Stieglmaier
 Tags: mailman, widget, newsletter
 Requires at least: 3.0.1
