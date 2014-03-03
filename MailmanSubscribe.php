@@ -71,6 +71,10 @@ class Mailman_Subscribe extends WP_Widget {
   public function process_submission () {
     if (!empty($_POST[$this->id_base . '_email'])) {
       $options = get_option($this->option_name);
+      if (!in_array($_POST['mailmanNumber'], $options)) {
+            $this->status_message = icl_t("Mailman_Subscribe", 'Failure Message', $options["failure_message"]);
+            return false;
+      }
       $options = $options[$_POST['mailmanNumber']];
       if (is_email($_POST[$this->id_base . '_email'])) {
         $subject = "subscribe";
@@ -79,7 +83,7 @@ class Mailman_Subscribe extends WP_Widget {
 
         if (mail($options["mailingList"], $subject, $body, $headers)) {
           $this->status_message = icl_t("Mailman_Subscribe", 'Success Message', $options["success_message"]);
-          return;
+          return true;
         }
       }
       $this->status_message = icl_t("Mailman_Subscribe", 'Failure Message', $options["failure_message"]);
