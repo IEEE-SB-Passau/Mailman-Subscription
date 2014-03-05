@@ -71,11 +71,7 @@ class Mailman_Subscribe extends WP_Widget {
   public function process_submission () {
     if (!empty($_POST[$this->id_base . '_email'])) {
       $options = get_option($this->option_name);
-      if (!in_array($_POST['mailmanNumber'], $options)) {
-            $this->status_message = icl_t("Mailman_Subscribe", 'Failure Message', $options["failure_message"]);
-            return false;
-      }
-      $options = $options[$_POST['mailmanNumber']];
+      $options = $options[$this->number];
       if (is_email($_POST[$this->id_base . '_email'])) {
         $subject = "subscribe";
         $body = "";
@@ -114,12 +110,12 @@ class Mailman_Subscribe extends WP_Widget {
       $widgetName = "Mailman_Subscribe";
       $widget .= $before_widget . $before_title . icl_t($widgetName, "Widget Title", $instance['title']) . $after_title;
       $widget .= $this->status_message;
-      $widget .= '<form class="mailman_subscribe_widget" action="' . $_SERVER['REQUEST_URI'] . '" id="' . $this->id_base . '_form-' . $this->number . '" method="post">' . '<input type="text" name="' . $this->id_base . '_email" placeholder="E-Mail..." /><input type="hidden" name="mailmanNumber" value="' . $this->number . '" /><input type="submit" name="' . icl_t($widgetName, "Subscribe Button Text", $instance['subscribe_text']) . '" value="' . icl_t($widgetName, "Subscribe Button Text", $instance['subscribe_text']) . '" /></form>';
+      $widget .= '<form class="mailman_subscribe_widget" action="' . $_SERVER['REQUEST_URI'] . '" id="' . $this->id_base . '_form-' . $this->number . '" method="post">' . '<input type="text" name="' . $this->id_base . '_email" placeholder="E-Mail..." /><input type="submit" name="' . icl_t($widgetName, "Subscribe Button Text", $instance['subscribe_text']) . '" value="' . icl_t($widgetName, "Subscribe Button Text", $instance['subscribe_text']) . '" /></form>';
       $widget .= $after_widget;
     } else {
       $widget .= $before_widget . $before_title . $instance['title'] . $after_title;
       $widget .= $this->status_message;
-      $widget .= '<form class="mailman_subscribe_widget" action="' . $_SERVER['REQUEST_URI'] . '" id="' . $this->id_base . '_form-' . $this->number . '" method="post">' . '<input type="text" name="' . $this->id_base . '_email" placeholder="E-Mail..." /><input type="hidden" name="mailmanNumber" value="' . $this->number . '" /><input type="submit" name="' . __($instance['subscribe_text'], 'Mailman_Subscribe') . '" value="' . __($instance['subscribe_text'], 'Mailman_Subscribe') . '" /></form>';
+      $widget .= '<form class="mailman_subscribe_widget" action="' . $_SERVER['REQUEST_URI'] . '" id="' . $this->id_base . '_form-' . $this->number . '" method="post">' . '<input type="text" name="' . $this->id_base . '_email" placeholder="E-Mail..." /><input type="submit" name="' . __($instance['subscribe_text'], 'Mailman_Subscribe') . '" value="' . __($instance['subscribe_text'], 'Mailman_Subscribe') . '" /></form>';
       $widget .= $after_widget;
     }
     echo $widget;
